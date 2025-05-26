@@ -147,7 +147,7 @@ export default function ChatScreen() {
       if (yesKeywords.includes(lower)) {
         setIsTyping(true);
         try {
-          const res = await fetch("http://localhost:5000/api/chat", {
+          const res = await fetch("https://dorian-backend.onrender.com/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: pendingPrompt }),
@@ -231,7 +231,7 @@ export default function ChatScreen() {
     // Attempt to match topic
     try {
       setIsTyping(true);
-      const res = await fetch("http://localhost:5000/api/chat/match", {
+      const res = await fetch("https://dorian-backend.onrender.com/api/chat/match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
