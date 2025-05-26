@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* Use Poppins as the default font */
+:root {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Utility class for Inter font */
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+body{
+  background-color: #000;
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563; /* gray-600 */
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* gray-400 */
+}
