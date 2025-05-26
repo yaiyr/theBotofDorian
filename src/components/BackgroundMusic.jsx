@@ -7,7 +7,7 @@ export default function BackgroundMusic() {
     const handleUserInteraction = () => {
       if (audioRef.current) {
         audioRef.current.muted = false;
-        audioRef.current.volume = 0.1; // 🎧 Set volume to 20%
+        audioRef.current.volume = 0.5; // 🎧 Set volume to 20%
         audioRef.current.play().catch(() => {});
       }
 
