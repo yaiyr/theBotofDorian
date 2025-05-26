@@ -55,11 +55,14 @@ export default function ChatScreen() {
 
       if (mode === "direct") {
         try {
-          const res = await fetch("https://dorian-backend.onrender.com/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: initialTopic }),
-          });
+          const res = await fetch(
+            "https://dorian-backend.onrender.com/api/chat",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: initialTopic }),
+            }
+          );
 
           const data = await res.json();
           setMessages((prev) => {
@@ -82,11 +85,14 @@ export default function ChatScreen() {
         }
       } else {
         try {
-          const res = await fetch("https://dorian-backend.onrender.com/api/chat/match", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: initialTopic }),
-          });
+          const res = await fetch(
+            "https://dorian-backend.onrender.com/api/chat/match",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: initialTopic }),
+            }
+          );
 
           const data = await res.json();
           const matches = data?.matches || [];
@@ -133,6 +139,21 @@ export default function ChatScreen() {
     fetchInitialResponse();
   }, [initialTopic]);
 
+  const resetChat = () => {
+    setMessages([
+      {
+        sender: "bot",
+        text: "Welcome, seeker. What question stirs your curiosity about my life, my sins, or my story?",
+      },
+    ]);
+    setInput("");
+    setPendingPrompt(null);
+    setAwaitingConfirmation(false);
+    setMatchQueue([]);
+    setMatchIndex(0);
+    setIsTyping(false);
+  };
+
   const sendMessage = async () => {
     console.log("📨 sendMessage triggered with input:", input);
     if (!input.trim()) return;
@@ -147,11 +168,14 @@ export default function ChatScreen() {
       if (yesKeywords.includes(lower)) {
         setIsTyping(true);
         try {
-          const res = await fetch("https://dorian-backend.onrender.com/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: pendingPrompt }),
-          });
+          const res = await fetch(
+            "https://dorian-backend.onrender.com/api/chat",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: pendingPrompt }),
+            }
+          );
           const data = await res.json();
           setTimeout(() => {
             setMessages((prev) => [
@@ -231,11 +255,14 @@ export default function ChatScreen() {
     // Attempt to match topic
     try {
       setIsTyping(true);
-      const res = await fetch("https://dorian-backend.onrender.com/api/chat/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
+      const res = await fetch(
+        "https://dorian-backend.onrender.com/api/chat/match",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: input }),
+        }
+      );
 
       const data = await res.json();
       const matches = data?.matches || [];
@@ -312,8 +339,10 @@ export default function ChatScreen() {
           </button>
           <button
             onClick={() => {
-              navigate("/chat");
-              window.location.reload();
+              navigate("/chat", { replace: true });
+              setTimeout(() => {
+                resetChat(); // clear state after navigation
+              }, 100);
             }}
             className="mt-4 px-9 py-3 bg-blue-500 hover:bg-blue-600 rounded-full text-white text-lg cursor-pointer flex items-center gap-1"
           >
