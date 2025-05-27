@@ -11,7 +11,7 @@ export default function StartScreen() {
   const topics = [
     {
       title: "Summary of the Novel",
-      keyword: "summary",
+      keyword: "summary of the novel",
       description: "A brief overview of the novel.",
     },
     {
